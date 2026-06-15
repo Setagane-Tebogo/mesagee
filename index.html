@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Fifi ❤️</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:
+linear-gradient(
+-45deg,
+#090909,
+#1a0933,
+#2f1f5a,
+#0d1b3d
+);
+
+background-size:400% 400%;
+animation:bg 12s infinite ease;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.card{
+
+width:90%;
+max-width:800px;
+
+padding:40px;
+
+background:
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+border-radius:30px;
+
+box-shadow:
+0 0 60px rgba(255,255,255,.12);
+
+text-align:center;
+
+animation:appear 2s ease;
+}
+
+@keyframes appear{
+
+from{
+opacity:0;
+transform:translateY(80px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+h1{
+
+color:white;
+
+font-size:42px;
+
+margin-bottom:20px;
+
+animation:glow 2s infinite alternate;
+
+}
+
+@keyframes glow{
+
+from{
+text-shadow:
+0 0 10px #ff8dc7;
+}
+
+to{
+text-shadow:
+0 0 35px #ffffff;
+}
+
+}
+
+button{
+
+padding:14px 34px;
+
+border:none;
+
+border-radius:50px;
+
+font-size:18px;
+
+cursor:pointer;
+
+background:
+linear-gradient(
+90deg,
+#ff4da6,
+#8b5cf6
+);
+
+color:white;
+
+transition:.4s;
+
+}
+
+button:hover{
+
+transform:
+scale(1.08);
+
+box-shadow:
+0 0 30px pink;
+
+}
+
+.message{
+
+margin-top:30px;
+
+max-height:0;
+
+overflow:auto;
+
+opacity:0;
+
+color:#f3f3f3;
+
+line-height:2;
+
+font-size:17px;
+
+transition:2s;
+
+text-align:left;
+
+}
+
+.show{
+
+max-height:500px;
+
+opacity:1;
+
+padding-right:10px;
+
+}
+
+.message::-webkit-scrollbar{
+width:6px;
+}
+
+.message::-webkit-scrollbar-thumb{
+background:#ffffff55;
+border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>💌 A Message For Fifi</h1>
+
+<button onclick="showMessage()">
+Open Message
+</button>
+
+<div class="message" id="msg">
+
+<p>
+Hey Fifi, hope you’re okay.
+<br><br>
+
+I’ve been thinking for some time before sending this message because I didn’t want to disturb your peace.
+
+I just wanted us to be okay.
+
+I’m not saying you’re not okay, but from my side I wanted to make sure there’s no anger, tension, or pain left between us.
+<br><br>
+
+I want to say I’m sorry.
+
+I acknowledge my mistakes and the things I did that hurt you.
+
+If possible, please find it in your heart to forgive me.
+<br><br>
+
+Thank you for everything you did for me.
+
+Thank you for keeping my secrets safe.
+
+Thank you for understanding parts of me I didn’t show everyone.
+
+I’ll always appreciate that.
+<br><br>
+
+The moments we spent together, the laughs, the conversations, and the memories meant a lot to me.
+<br><br>
+
+I understand maybe I became too much sometimes.
+
+If I made you feel tired or unhappy, I’m sorry.
+<br><br>
+
+I know you moved on and I genuinely hope you’re happy.
+
+I hope the person beside you treats you with kindness and gives you peace.
+<br><br>
+
+As for me, 
+I don’t know what the future holds, but I believe maybe one day in the future I may need you..not in a relationship way, but maybe as someone I can speak to or ask for help. That’s why I don’t want us to leave things with anger or tension between us because of the breakup. I just wanted to make sure we’re okay.<br><br>
+
+I’m not asking for anything.
+
+I just wanted peace between us.
+<br><br>
+
+Have a blessed night, Fifi.
+
+May God continue to bless and protect you always ❤️
+<br><br>
+
+
+ 
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function showMessage(){
+
+document
+.getElementById("msg")
+.classList
+.add("show");
+
+}
+
+</script>
+
+</body>
+</html>
