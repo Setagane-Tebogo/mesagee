@@ -1,22 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bible Scramble Game</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:
+linear-gradient(
+135deg,
+#0f2027,
+#203a43,
+#2c5364
+);
+
+padding:20px;
+
+}
+
+.container{
+
+width:100%;
+max-width:800px;
+
+background:
+rgba(255,255,255,.12);
+
+backdrop-filter:blur(15px);
+
+padding:35px;
+
+border-radius:28px;
+
+color:white;
+
+text-align:center;
+
+box-shadow:
+0 15px 40px
+rgba(0,0,0,.35);
+
+}
+
+h1{
+
+font-size:42px;
+
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+opacity:.8;
+
+margin-bottom:25px;
+
+}
+
+.scramble{
+
+font-size:46px;
+
+font-weight:bold;
+
+letter-spacing:6px;
+
+padding:25px;
+
+border-radius:22px;
+
+background:
+rgba(255,255,255,.15);
+
+margin-bottom:20px;
+
+word-break:break-word;
+
+}
+
+.answer{
+
+font-size:28px;
+
+min-height:60px;
+
+color:#ffe082;
+
+margin-bottom:20px;
+
+}
+
+.buttons{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:15px;
+
+}
+
+button{
+
+padding:16px;
+
+border:none;
+
+border-radius:16px;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+button:hover{
+
+transform:scale(1.03);
+
+}
+
+.reveal{
+grid-column:span 2;
+background:#9b59b6;
+color:white;
+}
+
+.a{
+background:#27ae60;
+color:white;
+}
+
+.b{
+background:#3498db;
+color:white;
+}
+
+.none{
+background:#f39c12;
+color:white;
+}
+
+.reset{
+background:#e74c3c;
+color:white;
+}
+
+.score{
+
+margin-top:25px;
+
+font-size:28px;
+
+}
+
+.round{
+
+margin-top:12px;
+
+font-size:18px;
+
+opacity:.9;
+
+}
+
+@media(max-width:600px){
+
+.buttons{
+
+grid-template-columns:1fr;
+
+}
+
+.reveal{
+
+grid-column:span 1;
+
+}
+
+.scramble{
+
+font-size:34px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📖 Bible Scramble</h1>
+
+<div class="subtitle">
+Game By TTFM
+</div>
+
+<div
+id="scramble"
+class="scramble">
+</div>
+
+<div
+id="answer"
+class="answer">
+</div>
+
+<div class="buttons">
+
+<button
+class="reveal"
+onclick="revealWord()">
+👁 Reveal Answer
+</button>
+
+<button
+class="a"
+onclick="groupA()">
+🏆 Group A Correct
+</button>
+
+<button
+class="b"
+onclick="groupB()">
+🏆 Group B Correct
+</button>
+
+<button
+class="none"
+onclick="nobody()">
+❌ Nobody Got Correct
+</button>
+
+<button
+class="reset"
+onclick="resetGame()">
+🔄 Reset Game
+</button>
+
+</div>
+
+<div class="score">
+
+Group A:
+<span id="scoreA">0</span>
+
+|
+
+Group B:
+<span id="scoreB">0</span>
+
+</div>
+
+<div class="round">
+
+Round:
+<span id="round">1</span>
+
+</div>
+
+</div>
+
 <script>
 
 const words=[
-// KEEP YOUR 75 WORDS HERE
+
+"ADAM",
+"EVE",
+"CAIN",
+"ABEL",
+"SETH",
+"NOAH",
+"ABRAHAM",
+"SARAH",
+"ISAAC",
+"REBEKAH",
+"JACOB",
+"LEAH",
+"RACHEL",
+"JOSEPH",
+"BENJAMIN",
+"MOSES",
+"AARON",
+"JOSHUA",
+"CALEB",
+"GIDEON",
+"SAMSON",
+"DELILAH",
+"RUTH",
+"BOAZ",
+"SAMUEL",
+"SAUL",
+"DAVID",
+"SOLOMON",
+"ELIJAH",
+"ELISHA",
+"ISAIAH",
+"JEREMIAH",
+"LAMENTATIONS",
+"EZEKIEL",
+"DANIEL",
+"HOSEA",
+"JOEL",
+"AMOS",
+"OBADIAH",
+"JONAH",
+"MICAH",
+"NAHUM",
+"HABAKKUK",
+"ZEPHANIAH",
+"HAGGAI",
+"ZECHARIAH",
+"MALACHI",
+"ESTHER",
+"EZRA",
+"NEHEMIAH",
+"JOB",
+"MARY",
+"JOSEPH",
+"JESUS",
+"PETER",
+"ANDREW",
+"JAMES",
+"JOHN",
+"MATTHEW",
+"MARK",
+"LUKE",
+"THOMAS",
+"JUDAS",
+"BARTHOLOMEW",
+"PAUL",
+"TIMOTHY",
+"TITUS",
+"STEPHEN",
+"LAZARUS",
+"MARTHA",
+"NICODEMUS",
+"ZACCHAEUS",
+"SILAS",
+"ANNA"
+
 ];
 
 let scoreA=0;
+
 let scoreB=0;
+
 let round=1;
 
 let current="";
+
 let revealed=false;
 
-function scramble(word){
+function shuffle(word){
 
-let arr=word.split("");
+let arr=
+word.split("");
 
 for(
-let i=arr.length-1;
+let i=
+arr.length-1;
 i>0;
 i--
 ){
@@ -34,7 +406,19 @@ Math.random()
 
 }
 
-return arr.join("");
+let result=
+arr.join("");
+
+if(
+result===
+word
+){
+
+return shuffle(word);
+
+}
+
+return result;
 
 }
 
@@ -53,10 +437,12 @@ words.length
 
 document
 .getElementById(
-"word"
+"scramble"
 )
 .innerHTML=
-scramble(current);
+shuffle(
+current
+);
 
 document
 .getElementById(
@@ -79,20 +465,18 @@ document
 "answer"
 )
 .innerHTML=
-"📖 Answer: <b>"
-+
-current+
-"</b>";
+"📖 "+
+current;
 
 }
 
-function moveNext(){
+function nextRound(){
 
 round++;
 
 document
 .getElementById(
-"count"
+"round"
 )
 .innerHTML=
 round;
@@ -106,7 +490,7 @@ function groupA(){
 if(!revealed){
 
 alert(
-"Reveal the answer first!"
+"Reveal answer first"
 );
 
 return;
@@ -117,12 +501,12 @@ scoreA++;
 
 document
 .getElementById(
-"a"
+"scoreA"
 )
 .innerHTML=
 scoreA;
 
-moveNext();
+nextRound();
 
 }
 
@@ -131,7 +515,7 @@ function groupB(){
 if(!revealed){
 
 alert(
-"Reveal the answer first!"
+"Reveal answer first"
 );
 
 return;
@@ -142,28 +526,28 @@ scoreB++;
 
 document
 .getElementById(
-"b"
+"scoreB"
 )
 .innerHTML=
 scoreB;
 
-moveNext();
+nextRound();
 
 }
 
-function noWinner(){
+function nobody(){
 
 if(!revealed){
 
 alert(
-"Reveal the answer first!"
+"Reveal answer first"
 );
 
 return;
 
 }
 
-moveNext();
+nextRound();
 
 }
 
@@ -177,18 +561,21 @@ round=1;
 
 document
 .getElementById(
-"a"
-).innerHTML=0;
+"scoreA"
+)
+.innerHTML=0;
 
 document
 .getElementById(
-"b"
-).innerHTML=0;
+"scoreB"
+)
+.innerHTML=0;
 
 document
 .getElementById(
-"count"
-).innerHTML=1;
+"round"
+)
+.innerHTML=1;
 
 nextWord();
 
@@ -197,3 +584,6 @@ nextWord();
 nextWord();
 
 </script>
+
+</body>
+</html>
